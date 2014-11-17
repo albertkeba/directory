@@ -10,14 +10,42 @@
 	<link rel="stylesheet" type="text/css" href="vendors/lungo/lungo.theme.css">
 </head>
 <body>
-	<div id="test"></div>
+	<section id="main">
+		<header data-title="Mobile Directory"></header>
+		<article id="main-article" class="list">
+			<ul></ul>
+		</article>
+	</section>
 	<script type="text/javascript" src="vendors/quo/quo.js"></script>
 	<script type="text/javascript" src="vendors/lungo/lungo.js"></script>
 	<script type="text/javascript" src="vendors/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="vendors/mustache.js"></script>
+	<script type="text/javascript" src="scripts/event.js"></script>
+	<script type="text/javascript" src="scripts/app.js"></script>
+	<script type="text/javascript" src="scripts/utils.js"></script>
+	<script type="text/javascript" src="scripts/model.contact.js"></script>
+	<script type="text/javascript" src="scripts/collection.contacts.js"></script>
+	<script type="text/javascript" src="scripts/view.contact.js"></script>
+	<script type="text/javascript" src="scripts/view.listcontacts.js"></script>
 	<script type="text/javascript">
 	(function(){
+		Lungo.init({
+			name: 'mobile_directory'
+		});
+		
 		Lungo.ready(function(){
-			
+			App.Utils.templateLoader.load(['contact'], function(){
+				var directory = new App.Collections.Contacts({
+					model: App.Models.Contact
+				});
+
+				directory.fetch(function(d){
+					new App.Views.ListContacts({
+						el			: '#main-article ul',
+						collection	: d
+					}).render();
+				});
+			});
 		});
 	}());
 	</script>

@@ -8,6 +8,8 @@ App.Models.Contact = (function(){
 	};
 
 	Model.prototype.init  	= function( options ){
+		console.log(options);
+
 		if ( options.data )
 			this.parse( options.data );
 
@@ -23,7 +25,9 @@ App.Models.Contact = (function(){
 			email		: data.email,
 			city		: data.city,
 			phone		: data.cellPhone,
-			position	: data.title
+			position	: data.title,
+			picture		: data.picture,
+			title		: data.title
 		};
 
 		this.attributes = _c;
