@@ -23,7 +23,7 @@
 		</article>
 
 		<article id="contact-view">
-
+			<div id="test"></div>
 		</article>
 	</section>
 	<script type="text/javascript" src="vendors/quo/quo.js"></script>
@@ -35,6 +35,7 @@
 	<script type="text/javascript" src="scripts/utils.js"></script>
 	<script type="text/javascript" src="scripts/model.contact.js"></script>
 	<script type="text/javascript" src="scripts/collection.contacts.js"></script>
+	<script type="text/javascript" src="scripts/view.card.js"></script>
 	<script type="text/javascript" src="scripts/view.contact.js"></script>
 	<script type="text/javascript" src="scripts/view.listcontacts.js"></script>
 	<script type="text/javascript">
@@ -44,7 +45,7 @@
 		});
 		
 		Lungo.ready(function(){
-			App.Utils.templateLoader.load(['list-contact','contact'], function(){
+			App.Utils.templateLoader.load(['list-contact','contact','card'], function(){
 				var directory = new App.Collections.Contacts({
 					model: App.Models.Contact
 				});
@@ -54,10 +55,6 @@
 						el			: '#main-article ul',
 						collection	: d
 					}).render();
-				});
-
-				Lungo.dom('#contact-view').on('load', function(e){
-					console.log('load');
 				});
 			});
 		});
