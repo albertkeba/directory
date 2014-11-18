@@ -8,8 +8,6 @@ App.Models.Contact = (function(){
 	};
 
 	Model.prototype.init  	= function( options ){
-		console.log(options);
-
 		if ( options.data )
 			this.parse( options.data );
 

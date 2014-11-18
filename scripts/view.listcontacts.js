@@ -22,7 +22,7 @@ App.Views.ListContacts = (function(){
 			_itemViews[ i ] = new App.Views.Contact({
 				id	 : i,
 				model: this.collection.models[i],
-				template: App.Utils.templateLoader.get('contact')
+				template: App.Utils.templateLoader.get('list-contact')
 			}).render();
 
 			$element.append( _itemViews[ i ] );

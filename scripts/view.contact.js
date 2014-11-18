@@ -11,15 +11,8 @@ App.Views.Contact = (function(){
 
 		this.events 	= {
 			click: [{
-				element	: 'h4',
+				element	: 'li',
 				attach	: 'test'
-			},{
-				element	: 'span',
-				attach	: 'retest'
-			}],
-			mouseenter: [{
-				element	: 'span',
-				attach	: 'mouseenter'
 			}]
 		};
 	};
@@ -46,21 +39,20 @@ App.Views.Contact = (function(){
 		{
 			for ( el in events[key] )
 			{
-				this._template.find( events[key][el].element ).on( key, this.model.model.attributes, this[events[key][el].attach] );
+				var elment = null;
+
+				if (this._template.prop('tagName').toLowerCase() == events[key][el].element )
+					element = this._template;
+				else
+					element = this._template.find( events[key][el].element, this );
+
+				element.on( key, this.model.model.attributes, this[events[key][el].attach] );
 			}
 		}
 	};
 
 	View.prototype.test = function(e){
-		console.log('-- test --',e.data);
-	};
-
-	View.prototype.retest = function(){
-		console.log('-- reTest -- ');
-	};
-
-	View.prototype.mouseenter = function(e){
-		console.log('mouseenter', e.data);
+		console.log(e.data);
 	};
 
 	return View;
