@@ -1,11 +1,16 @@
-App.Views.Viewport = (function(){
+/*jslint browser: true*/
+/*global App, $, jQuery, Mustache, alert*/
+
+App.Views.Viewport = (function () {
+	'use strict';
+	
 	var _template = null;
 
-	function Viewport( options ){
-		options || (options={});
+	function Viewport(options) {
+		options = options || {};
 
-		this.title 		= options.title ? options.title : '';
-		this.$el 		= options.el ? $(options.el) : null; 
+		this.title		= options.title || '';
+		this.$el		= options.el ? $(options.el) : null; 
 		this.template	= options.template ? App.Utils.templateLoader.get( options.template ) : null;
 		this.events		= {
 			click: [{
@@ -13,37 +18,45 @@ App.Views.Viewport = (function(){
 				attach	: ''
 			}]
 		};
+	}
 
-		return this;
-	};
-
-	Viewport.prototype.render = function(){
+	Viewport.prototype.render = function () {
 		if ( this.template )
 		{
 			this._template = $( Mustache.render(this.template));
 			//this.bindEvents();
 			//
 			if ( this.$el  )
-				this.$el.prepend( this._template );
+			{
+				this.$el.prepend( this.template );
+			}
 		}
 	};
 
-	Viewport.prototype.bindEvents = function(){
+	Viewport.prototype.bindEvents = function () {
 
-		var events = this.events;
+		var events = this.events, key, el, element = null;
 
 		for ( key in events )
 		{
-			for ( el in events[key] )
+			if ( events.hasOwnProperty(key) )
 			{
-				var elment = null;
+				for ( el in events[key] )
+				{
+					if ( (events[key]).hasOwnProperty(el) )
+					{
+						if ( this.template.prop('tagName').toLowerCase() === events[key][el].element )
+						{
+							element = this._template;
+						}
+						else
+						{
+							element = this._template.find( events[key][el].element, this );
+						}
 
-				if (this._template.prop('tagName').toLowerCase() == events[key][el].element )
-					element = this._template;
-				else
-					element = this._template.find( events[key][el].element, this );
-
-				element.on( key, this.model.model.attributes, this[events[key][el].attach] );
+						element.on( key, this.model.model.attributes, this[events[key][el].attach] );
+					}
+				}
 			}
 		}
 	};
