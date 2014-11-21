@@ -1,21 +1,26 @@
+/*jslint browser: true, devel:true*/
+/*global App, $, Mustache, Lungo*/
+
 App.Views.Contact = (function(){
+	'use strict';
+	
 	var _template = null;
 
-	function View( options ){
-		options || (options={});
+	function View(options){
+		options = options || {};
 
-		this.id 		= options.id 		? options.id : null;
-		this.className	= options.className	? options.className : null;
-		this.model		= options.model		? options.model : null;
-		this.template	= options.template	? options.template : null;
+		this.id			= options.id		|| null;
+		this.className	= options.className	|| null;
+		this.model		= options.model		|| null;
+		this.template	= options.template	|| null;
 
-		this.events 	= {
+		this.events		= {
 			click: [{
 				element	: 'li',
 				attach	: 'get'
 			}]
 		};
-	};
+	}
 
 	View.prototype.get	= function(e){
 		var card = new App.Views.Card({
@@ -42,20 +47,28 @@ App.Views.Contact = (function(){
 
 	View.prototype.bindEvents = function(){
 
-		var events = this.events;
+		var events = this.events, key, el, element = null;
 
 		for ( key in events )
 		{
-			for ( el in events[key] )
+			if ( events.hasOwnProperty(key) )
 			{
-				var elment = null;
+				for ( el in events[key] )
+				{
+					if ( (events[key]).hasOwnProperty(el) )
+					{
+						if ( this._template.prop('tagName').toLowerCase() === events[key][el].element )
+						{
+							element = this._template;
+						}
+						else
+						{
+							element = this._template.find( events[key][el].element, this );
+						}
 
-				if (this._template.prop('tagName').toLowerCase() == events[key][el].element )
-					element = this._template;
-				else
-					element = this._template.find( events[key][el].element, this );
-
-				element.on( key, this.model.model.attributes, this[events[key][el].attach] );
+						element.on( key, this.model.model.attributes, this[events[key][el].attach] );
+					}
+				}
 			}
 		}
 	};

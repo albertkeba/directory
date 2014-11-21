@@ -1,5 +1,5 @@
-/*jslint browser: true*/
-/*global App, $, jQuery, Mustache, alert*/
+/*jslint browser: true, devel:true*/
+/*global App, $, Mustache, alert*/
 
 App.Views.Viewport = (function () {
 	'use strict';
@@ -14,8 +14,8 @@ App.Views.Viewport = (function () {
 		this.template	= options.template ? App.Utils.templateLoader.get( options.template ) : null;
 		this.events		= {
 			click: [{
-				element	: '',
-				attach	: ''
+				element	: '#add',
+				attach	: 'AddUser'
 			}]
 		};
 	}
@@ -23,12 +23,12 @@ App.Views.Viewport = (function () {
 	Viewport.prototype.render = function () {
 		if ( this.template )
 		{
-			this._template = $( Mustache.render(this.template));
-			//this.bindEvents();
-			//
+			this._template = $( Mustache.render(this.template, {title: this.title}) );
+			this.bindEvents();
+
 			if ( this.$el  )
 			{
-				this.$el.prepend( this.template );
+				this.$el.prepend( this._template );
 			}
 		}
 	};
@@ -45,7 +45,7 @@ App.Views.Viewport = (function () {
 				{
 					if ( (events[key]).hasOwnProperty(el) )
 					{
-						if ( this.template.prop('tagName').toLowerCase() === events[key][el].element )
+						if ( this._template.prop('tagName').toLowerCase() === events[key][el].element )
 						{
 							element = this._template;
 						}
@@ -54,11 +54,15 @@ App.Views.Viewport = (function () {
 							element = this._template.find( events[key][el].element, this );
 						}
 
-						element.on( key, this.model.model.attributes, this[events[key][el].attach] );
+						element.on( key, this[events[key][el].attach] );
 					}
 				}
 			}
 		}
+	};
+	
+	Viewport.prototype.AddUser = function () {
+		alert('AddUser');
 	};
 
 	return Viewport;

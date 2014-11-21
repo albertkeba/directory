@@ -1,12 +1,16 @@
+/*jslint browser: true, devel:true*/
+/*global App, $, Mustache, Lungo*/
+
 App.Views.Card = (function(){
+	'use strict';
 	var _template = null;
 
 	function View( options ){
-		options || (options={});
+		options = options || {};
 
-		this.template 	= options.template 	? options.template : null;
-		this.model		= options.model		? options.model : null;
-	};
+		this.template	= options.template	|| null;
+		this.model		= options.model		|| null;
+	}
 
 	View.prototype.render = function(){
 		if ( this.template && this.model )
