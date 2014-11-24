@@ -24,3 +24,10 @@
 	#card-container #name {float: left; line-height: 28px; margin-left: 10px; padding-top: 26px;}
 	#card-container li {}
 	#card-container span {}
+
+.form fieldset {padding: 8px;}
+.form .field {border-bottom: 1px solid #CCC;}
+	.form .field > label:not(.select) {float: left; width: 20%;	margin: .5em 0;	line-height: 1.75em;}
+	.form .field input[type="text"],
+	.form .field > label:not(.absolute) + label.select{width: 80%;}
+	.form .field label.select {line-height: 1.5em;}

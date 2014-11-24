@@ -1,23 +1,28 @@
-App.Models.Contact = (function(){
-	function Model( options ){
-		options || (options={});
+/*jslint nomen: true, plusplus: false, white: true, indent: 4*/
+/*global App*/
+App.Models.Contact = (function () {
+	'use strict';
+	function Model(options) {
+		options = options || {};
 
 		this.attributes	= {};
 
-		this.init( options );
-	};
+		this.init(options);
+	}
 
-	Model.prototype.init  	= function( options ){
-		if ( options.data )
-			this.parse( options.data );
+	Model.prototype.init = function (options) {
+		if (options.data) {
+			this.parse(options.data);
+		}
 
-		if ( options.initialize )
+		if (options.initialize) {
 			options.initialize();
+		}
 	};
 
-	Model.prototype.parse 	= function( data ){
+	Model.prototype.parse = function (data) {
 		var _c = {
-			id			: parseInt(data.id),
+			id			: parseInt(data.id, 10),
 			firstname	: data.firstName,
 			lastname	: data.lastName,
 			email		: data.email,
@@ -34,14 +39,15 @@ App.Models.Contact = (function(){
 		return this;
 	};
 
-	Model.prototype.get		= function( id ){
-		if ( this.attributes[ id ] )
+	Model.prototype.get	= function (id) {
+		if ( this.attributes[ id ] )  {
 			return this.attributes[ id ];
-		else
+		} else {
 			return {};
+		}
 	};
 
-	Model.prototype.set		= function( id, value){
+	Model.prototype.set	= function (id, value) {
 		if ( this.attributes[id] )
 		{
 			this.attributes[id] = value;

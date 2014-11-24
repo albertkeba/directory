@@ -1,7 +1,7 @@
-/*jslint browser: true, devel:true*/
+/*jslint browser: true, devel: true, nomen: true, white: true*/
 /*global App, $, Mustache, Lungo*/
 
-App.Views.Card = (function(){
+App.Views.Card = (function () {
 	'use strict';
 	var _template = null;
 

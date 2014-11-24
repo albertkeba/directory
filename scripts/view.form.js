@@ -1,27 +1,31 @@
 /*jslint devel: true, newcap: false, nomen: true, plusplus: true, white: true, indent: 4*/
-/*global App, $, Mustache, Lungo, alert*/
-App.Views.Viewport = (function () {
-    'use strict';
-    var _template = null;
-
-    function Viewport(options) {
+/*global App, $, Mustache, alert*/
+App.Views.Form = (function () {
+	'use strict';
+	var _template = null;
+	
+	function Form(options) {
 		options = options || {};
-
-		this.title		= options.title || '';
-		this.$el		= options.el ? $(options.el) : null; 
-		this.template	= options.template ? App.Utils.templateLoader.get( options.template ) : null;
+		
+		this.$el = options.el ? $( options.el ) : null;
+		this.template = options.template ? App.Utils.templateLoader.get( options.template ) : null;
+		
 		this.events		= {
 			click: [{
-				element	: '#add',
+				element	: '#btn-add',
 				attach	: 'AddUser'
+			}],
+			change: [{
+				element	: '#position',
+				attach	: 'test'
 			}]
 		};
 	}
-
-	Viewport.prototype.render = function () {
+	
+	Form.prototype.render = function () {
 		if ( this.template )
 		{
-			this._template = $( Mustache.render(this.template, {title: this.title}) );
+			this._template = $( Mustache.render(this.template) );
 			this.bindEvents();
 
 			if ( this.$el  )
@@ -30,9 +34,8 @@ App.Views.Viewport = (function () {
 			}
 		}
 	};
-
-	Viewport.prototype.bindEvents = function () {
-
+	
+	Form.prototype.bindEvents = function () {
 		var events = this.events, key, el, element = null;
 
 		for ( key in events )
@@ -59,18 +62,13 @@ App.Views.Viewport = (function () {
 		}
 	};
 	
-	Viewport.prototype.AddUser = function () {
-		if( $('.form').length === 0 )
-		{
-			var f = new App.Views.Form({
-				el: '#contact-form',
-				template: 'form'
-			}).render();
-		}
-		
-		Lungo.Router.article('main','contact-form');
+	Form.prototype.AddUser = function () {
+		alert('add user');
 	};
-
-	return Viewport;
+	
+	Form.prototype.test = function () {
+		alert('select');
+	};
+	
+	return Form;
 }());
-

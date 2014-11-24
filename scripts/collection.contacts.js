@@ -1,4 +1,4 @@
-/*jslint browser: true, devel:true, plusplus: true*/
+/*jslint devel: true, newcap: true, nomen: true, plusplus: true, white: true, indent: 4*/
 /*global $,App*/
 
 App.Collections.Contacts = (function(){
@@ -26,7 +26,7 @@ App.Collections.Contacts = (function(){
 	};
 
 	Collection.prototype.add = function( model, id ){
-		id || (id=this.models.length+1);
+		id = id || (this.models.length+1);
 
 		this.models.push({
 			id	 : id, 

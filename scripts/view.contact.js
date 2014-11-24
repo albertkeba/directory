@@ -1,15 +1,16 @@
-/*jslint browser: true, devel:true*/
+/*jslint browser: true, devel: true, nomen: true, white: true*/
 /*global App, $, Mustache, Lungo*/
 
-App.Views.Contact = (function(){
+App.Views.Contact = (function () {
 	'use strict';
 	
 	var _template = null;
 
-	function View(options){
+	function View(options) {
 		options = options || {};
 
 		this.id			= options.id		|| null;
+		this.$el		= options.el ? $( options.el ) : null;
 		this.className	= options.className	|| null;
 		this.model		= options.model		|| null;
 		this.template	= options.template	|| null;
@@ -22,18 +23,18 @@ App.Views.Contact = (function(){
 		};
 	}
 
-	View.prototype.get	= function(e){
+	View.prototype.get	= function (e) {
 		var card = new App.Views.Card({
 			model	: e.data,
 			template: App.Utils.templateLoader.get('card')
 		});
 
-		$('#test').empty().append( card.render() );
+		this.$el.empty().append( card.render() );
 
 		Lungo.Router.article('main','contact-view');
 	};
 
-	View.prototype.render = function(){
+	View.prototype.render = function () {
 		if ( this.template && this.model )
 		{
 			this._template = $( Mustache.render(this.template, this.model.model.attributes) );
@@ -45,7 +46,7 @@ App.Views.Contact = (function(){
 		return {};
 	};
 
-	View.prototype.bindEvents = function(){
+	View.prototype.bindEvents = function () {
 
 		var events = this.events, key, el, element = null;
 
