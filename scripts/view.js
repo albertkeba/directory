@@ -22,6 +22,9 @@ App.Views.Test = Class.extend({
 
 //http://esbueno.noahstokes.com/post/77292606977/self-executing-anonymous-functions-or-how-to-write
 //http://ejohn.org/blog/simple-javascript-inheritance/
+//http://krasimirtsonev.com/blog/article/JavaScript-dependency-free-extend-method
+//http://www.htmlgoodies.com/html5/javascript/extending-javascript-objects-in-the-classical-inheritance-style.html#fbid=tlutCPMf82L
+//http://www.htmlgoodies.com/html5/javascript/calling-parent-methods-in-javascript.html#fbid=tlutCPMf82L
 
 var View = (function () {
 	'use strict';
@@ -43,7 +46,7 @@ var View = (function () {
 				extended[prop] = options[prop];
 			}*/
 			
-			//console.log(prop, this.[prop]);
+			console.log(prop, this.prototype[template]);
 			console.log(Object.prototype.hasOwnProperty.call(Class, this[prop]));
 		}
 	};
