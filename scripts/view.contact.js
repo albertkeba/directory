@@ -24,12 +24,13 @@ App.Views.Contact = (function () {
 	}
 
 	View.prototype.get	= function (e) {
-		var card = new App.Views.Card({
-			model	: e.data,
+		var self = e.data.self,
+			card = new App.Views.Card({
+			model	: e.data.model,
 			template: App.Utils.templateLoader.get('card')
 		});
-
-		this.$el.empty().append( card.render() );
+		
+		self.$el.empty().append( card.render() );
 
 		Lungo.Router.article('main','contact-view');
 	};
@@ -48,7 +49,7 @@ App.Views.Contact = (function () {
 
 	View.prototype.bindEvents = function () {
 
-		var events = this.events, key, el, element = null;
+		var events = this.events, key, el, element = null, model = this.model.model.attributes;
 
 		for ( key in events )
 		{
@@ -67,7 +68,7 @@ App.Views.Contact = (function () {
 							element = this._template.find( events[key][el].element, this );
 						}
 
-						element.on( key, this.model.model.attributes, this[events[key][el].attach] );
+						element.on( key, {self: this, model: model}, this[events[key][el].attach] );
 					}
 				}
 			}

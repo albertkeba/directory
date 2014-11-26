@@ -28,14 +28,14 @@
 	<script type="text/javascript" src="scripts/view.form.js"></script>
 	<script type="text/javascript" src="scripts/view.listcontacts.js"></script>
 	
-	<script type="text/javascript" src="scripts/view.js"></script>
-	<script type="text/javascript" src="scripts/view.test.js"></script>
+	<!--script type="text/javascript" src="scripts/view.js"></script>
+	<script type="text/javascript" src="scripts/view.test.js"></script-->
 	<script type="text/javascript">
 	(function(){
 		
 		Lungo.ready(function(){
-			App.Utils.templateLoader.load(['list-contact','contact','card','viewport','form'], function(){
-				/*new App.Views.Viewport({
+			App.Utils.templateLoader.load(['list-contact','card','viewport','form'], function(){
+				new App.Views.Viewport({
 					title: 'Mobile Directory',
 					template: 'viewport',
 					el: 'body'
@@ -52,7 +52,7 @@
 						el			: '#main-article ul',
 						collection	: d
 					}).render();
-				});*/
+				});
 			});
 		});
 		

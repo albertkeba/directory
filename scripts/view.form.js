@@ -55,7 +55,7 @@ App.Views.Form = (function () {
 							element = this._template.find( events[key][el].element, this );
 						}
 
-						element.on( key, this[events[key][el].attach] );
+						element.on( key, {self:this},this[events[key][el].attach] );
 					}
 				}
 			}
@@ -66,8 +66,29 @@ App.Views.Form = (function () {
 		alert('add user');
 	};
 	
-	Form.prototype.test = function () {
-		alert('select');
+	Form.prototype.test = function (e,c) {
+		var department,
+			self = e.data.self;
+		
+		switch ( $(this).val() )
+		{
+			case 'VP of Sales':
+			case 'Sales Representative': department = 'Sales';
+				break;
+			case 'VP of Marketing': 
+			case 'Marketing': department = 'Marketing';
+				break;
+			case 'VP of Engineering':
+			case 'QA Manager':
+			case 'Software Architect': department = 'Engineering';
+				break;
+			case 'CFO': department = 'Accounting';
+				break;
+			case 'President and CEO': department = 'Corporate';
+				break;
+		}
+		
+		self.$el.find('#department').val( department );
 	};
 	
 	return Form;
