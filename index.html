@@ -43,11 +43,11 @@
 
 				Lungo.init({});
 
-				var directory = new App.Collections.Contacts({
+				App.global.directory = new App.Collections.Contacts({
 					model: App.Models.Contact
 				});
 
-				directory.fetch(function(d){
+				App.global.directory.fetch(function(d){
 					new App.Views.ListContacts({
 						el			: '#main-article ul',
 						collection	: d

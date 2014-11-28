@@ -5,5 +5,6 @@ var App = {
     'Models'    : {},
     'Views'     : {},
     'Utils'     : {},
-    'Event'     : new Event('App')
+    'Event'     : new Event('App'),
+	global		: {}
 };

@@ -32,6 +32,8 @@ App.Collections.Contacts = (function(){
 			id	 : id, 
 			model: model
 		});
+		
+		App.Event.notify('add', model);
 	};
 
 	Collection.prototype.fetch = function( callback ){

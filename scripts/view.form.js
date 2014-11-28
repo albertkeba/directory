@@ -1,5 +1,5 @@
 /*jslint devel: true, newcap: false, nomen: true, plusplus: true, white: true, indent: 4*/
-/*global App, $, Mustache, alert*/
+/*global App, $, Mustache, alert, directory*/
 App.Views.Form = (function () {
 	'use strict';
 	var _template = null;
@@ -16,8 +16,8 @@ App.Views.Form = (function () {
 				attach	: 'AddUser'
 			}],
 			change: [{
-				element	: '#position',
-				attach	: 'test'
+				element	: '#title',
+				attach	: 'onChangePosition'
 			}]
 		};
 	}
@@ -62,11 +62,38 @@ App.Views.Form = (function () {
 		}
 	};
 	
-	Form.prototype.AddUser = function () {
-		alert('add user');
+	Form.prototype.AddUser = function (e) {
+		var self= e.data.self,
+			data= {},
+			url	= App.Utils.serviceUrl + 'addContact';
+		
+		self.$el.find('form').serializeArray().map(function( input ){
+			data[input.name] = input.value;
+		});
+		
+		$.ajax({
+			url		: url,
+			type	: 'POST',
+			data	: JSON.stringify( data ),
+			dataType: 'json',
+			success	: function( rs ) {
+				if ( rs.success === 1 )
+				{
+					App.global.directory.add(new App.Models.Contact({
+						id			: rs.id,
+						firstname	: data.firstname,
+						lastname	: data.lastname,
+						position	: data.title,
+						department	: data.department,
+						phone		: data.officePhone,
+						email		: data.email
+					}));
+				}
+			}
+		});
 	};
 	
-	Form.prototype.test = function (e,c) {
+	Form.prototype.onChangePosition = function (e,c) {
 		var department,
 			self = e.data.self;
 		

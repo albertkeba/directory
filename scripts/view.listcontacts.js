@@ -9,11 +9,15 @@ App.Views.ListContacts = (function(){
 
 		this.collection = options.collection || {};
 		this.$el		= options.el ? $(options.el) : null; 
-		//this.init();
+		this.init();
+		
 	}
 
 	List.prototype.init = function(){
 		console.log('init list');
+		App.Event.on('add', function(e,a){
+			console.log(e,a);
+		});
 	};
 
 	List.prototype.render = function(){
