@@ -79,7 +79,7 @@ App.Views.Form = (function () {
 			success	: function( rs ) {
 				if ( rs.success === 1 )
 				{
-					App.global.directory.add(new App.Models.Contact({
+					App.global.directory.add({data: new App.Models.Contact({
 						id			: rs.id,
 						firstname	: data.firstname,
 						lastname	: data.lastname,
@@ -87,7 +87,7 @@ App.Views.Form = (function () {
 						department	: data.department,
 						phone		: data.officePhone,
 						email		: data.email
-					}));
+					})});
 				}
 			}
 		});

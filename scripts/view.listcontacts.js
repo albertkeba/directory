@@ -8,16 +8,32 @@ App.Views.ListContacts = (function(){
 		options = options || {};
 
 		this.collection = options.collection || {};
-		this.$el		= options.el ? $(options.el) : null; 
+		this.$el		= options.el ? $(options.el) : null;
+		this.listener	= false;
 		this.init();
-		
 	}
 
-	List.prototype.init = function(){
-		console.log('init list');
-		App.Event.on('add', function(e,a){
-			console.log(e,a);
-		});
+	List.prototype.init = function(e){
+		var self	= this,
+			$element= $(document.createDocumentFragment()),
+			i		= _itemViews.length;
+		if ( this.listener )
+		{
+			App.Event.on('add', function(sender,model){
+				_itemViews[ i ] = new App.Views.Contact({
+					id		: i,
+					el		: '#contact-view',
+					model	: model,
+					template: App.Utils.templateLoader.get('list-contact')
+				}).render();
+
+				$element.append( _itemViews[ i ] );
+
+				if ( self.$el !== null ) {
+					self.$el.append( $element  );
+				}
+			});
+		}
 	};
 
 	List.prototype.render = function(){
@@ -30,7 +46,7 @@ App.Views.ListContacts = (function(){
 			_itemViews[ i ] = new App.Views.Contact({
 				id		: i,
 				el		: '#contact-view',
-				model	: this.collection.models[i],
+				model	: this.collection.models[i].model.attributes,
 				template: App.Utils.templateLoader.get('list-contact')
 			}).render();
 
@@ -42,5 +58,21 @@ App.Views.ListContacts = (function(){
 		}
 	};
 
+	List.prototype.set = function(param, value){
+		
+		if ( this[param] )
+		{
+			this[param] = value;
+		}
+	};
+	
+	List.prototype.get = function(param){
+		console.log('get',param, this[param]);
+		if ( this[param] )
+		{
+			return this[param];
+		}
+	};
+	
 	return List;
 }());

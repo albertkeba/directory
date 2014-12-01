@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<meta name="description" content="">
-	<title></title>
+	<title>Mobile Directory</title>
 	<link rel="stylesheet" type="text/css" href="vendors/lungo/lungo.css" />
 	<link rel="stylesheet" type="text/css" href="vendors/lungo/lungo.theme.css" />
 	<link rel="stylesheet" type="text/css" href="vendors/lungo/lungo.icon.css" />
@@ -27,9 +27,6 @@
 	<script type="text/javascript" src="scripts/view.contact.js"></script>
 	<script type="text/javascript" src="scripts/view.form.js"></script>
 	<script type="text/javascript" src="scripts/view.listcontacts.js"></script>
-	
-	<!--script type="text/javascript" src="scripts/view.js"></script>
-	<script type="text/javascript" src="scripts/view.test.js"></script-->
 	<script type="text/javascript">
 	(function(){
 		
@@ -48,10 +45,16 @@
 				});
 
 				App.global.directory.fetch(function(d){
-					new App.Views.ListContacts({
+					var list = new App.Views.ListContacts({
 						el			: '#main-article ul',
 						collection	: d
-					}).render();
+					});
+					
+					list.render();
+					
+					list.set('listener', true);
+					
+					console.log(list, list.get('listener'));
 				});
 			});
 		});

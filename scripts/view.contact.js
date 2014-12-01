@@ -38,7 +38,7 @@ App.Views.Contact = (function () {
 	View.prototype.render = function () {
 		if ( this.template && this.model )
 		{
-			this._template = $( Mustache.render(this.template, this.model.model.attributes) );
+			this._template = $( Mustache.render(this.template, this.model) );
 			this.bindEvents();
 
 			return this._template;
@@ -49,7 +49,7 @@ App.Views.Contact = (function () {
 
 	View.prototype.bindEvents = function () {
 
-		var events = this.events, key, el, element = null, model = this.model.model.attributes;
+		var events = this.events, key, el, element = null, model = this.model;
 
 		for ( key in events )
 		{

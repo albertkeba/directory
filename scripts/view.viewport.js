@@ -73,4 +73,3 @@ App.Views.Viewport = (function () {
 
 	return Viewport;
 }());
-
