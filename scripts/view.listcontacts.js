@@ -17,10 +17,11 @@ App.Views.ListContacts = (function(){
 		var self	= this,
 			$element= $(document.createDocumentFragment()),
 			i		= _itemViews.length;
-		if ( this.listener )
-		{
+		//if ( this.listener )
+		//{
 			App.Event.on('add', function(sender,model){
-				_itemViews[ i ] = new App.Views.Contact({
+				console.log('init add',model);
+				/*_itemViews[ i ] = new App.Views.Contact({
 					id		: i,
 					el		: '#contact-view',
 					model	: model,
@@ -31,9 +32,9 @@ App.Views.ListContacts = (function(){
 
 				if ( self.$el !== null ) {
 					self.$el.append( $element  );
-				}
+				}*/
 			});
-		}
+		//}
 	};
 
 	List.prototype.render = function(){
@@ -60,15 +61,15 @@ App.Views.ListContacts = (function(){
 
 	List.prototype.set = function(param, value){
 		
-		if ( this[param] )
+		if ( this.hasOwnProperty(param) )
 		{
 			this[param] = value;
 		}
 	};
 	
 	List.prototype.get = function(param){
-		console.log('get',param, this[param]);
-		if ( this[param] )
+		
+		if ( this.hasOwnProperty(param) )
 		{
 			return this[param];
 		}

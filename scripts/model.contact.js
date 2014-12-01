@@ -14,7 +14,7 @@ App.Models.Contact = (function () {
 		if (options.data) {
 			this.parse(options.data);
 		}
-
+console.log(options);
 		if (options.initialize) {
 			options.initialize();
 		}
