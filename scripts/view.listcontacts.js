@@ -47,6 +47,8 @@ App.Views.ListContacts = (function(){
 				model	: this.collection.models[i].model.attributes,
 				template: App.Utils.templateLoader.get('list-contact')
 			}).render();
+			
+			//_itemViews[ i ].render();
 
 			$element.append( _itemViews[ i ] );
 		}
@@ -70,6 +72,10 @@ App.Views.ListContacts = (function(){
 		{
 			return this[param];
 		}
+	};
+	
+	List.prototype.getView = function( id ){
+		return _itemViews[ id ];
 	};
 	
 	return List;

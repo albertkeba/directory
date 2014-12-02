@@ -32,6 +32,8 @@
 		
 		Lungo.ready(function(){
 			App.Utils.templateLoader.load(['list-contact','card','viewport','form'], function(){
+				App.global.list = {};
+				
 				new App.Views.Viewport({
 					title: 'Mobile Directory',
 					template: 'viewport',
@@ -45,14 +47,14 @@
 				});
 
 				App.global.directory.fetch(function(d){
-					var list = new App.Views.ListContacts({
+					App.global.list = new App.Views.ListContacts({
 						el			: '#main-article ul',
 						collection	: d
 					});
 					
-					list.render();
+					App.global.list.render();
 					
-					list.set('listener', true);
+					App.global.list.set('listener', true);
 				});
 			});
 		});

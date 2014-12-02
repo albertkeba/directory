@@ -68,10 +68,19 @@ App.Views.Card = (function () {
 				el: '#contact-form',
 				template: 'form'
 			}).render();
+			
+			$form = $('#contact-form').find('form');
 		}
 		
+		$form.find('#contactid').val( model.id );
 		$form.find('#firstname').val( model.firstname );
-		console.log(e.data.model);
+		$form.find('#lastname').val( model.lastname );
+		$form.find('#title').val( model.title );
+		$form.find('#department').val( model.department );
+		$form.find('#officePhone').val( model.phone );
+		$form.find('#email').val( model.email );
+		
+		Lungo.Router.article('main','contact-form');
 	};
 
 	return View;

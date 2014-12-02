@@ -63,36 +63,49 @@ App.Views.Form = (function () {
 	};
 	
 	Form.prototype.AddUser = function (e) {
-		var self= e.data.self,
-			data= {},
-			url	= App.Utils.serviceUrl + 'addContact',
-			form = self.$el.find('form');
+		var self = e.data.self,
+			data = {},
+			url	 = App.Utils.serviceUrl + 'addContact',
+			form = self.$el.find('form'),
+			type = 'POST',
+			msg  = 'Succès';
 		
 		form.serializeArray().map(function( input ){
 			data[input.name] = input.value;
 		});
 		
+		if ( data.contactid !== '' )
+		{
+			url = App.Utils.serviceUrl + 'updateContact/' + data.contactid;
+			type= 'PUT';
+		}
+		
 		$.ajax({
 			url		: url,
-			type	: 'POST',
+			type	: type,
 			data	: JSON.stringify( data ),
 			dataType: 'json',
 			success	: function( rs ) {
 				if ( rs.success === 1 )
 				{
-					App.global.directory.add(new App.Models.Contact({data: {
-						id			: rs.id,
-						firstName	: data.firstname,
-						lastName	: data.lastname,
-						title		: data.title,
-						department	: data.department,
-						cellPhone	: data.officePhone,
-						email		: data.email
-					}}));
+					if ( data.contactid === '' )
+					{
+						App.global.directory.add(new App.Models.Contact({data: {
+							id			: rs.id,
+							firstName	: data.firstname,
+							lastName	: data.lastname,
+							title		: data.title,
+							department	: data.department,
+							cellPhone	: data.officePhone,
+							email		: data.email
+						}}));
+						
+						msg = 'Contact ajouté';
+					}
 					
 					form[0].reset();
 					
-					Lungo.Notification.show('check', 'Contact ajouté', 2, function(){
+					Lungo.Notification.show('check', msg, 2, function(){
 						Lungo.Notification.hide();
 						Lungo.Router.article('main','main-article');
 					});
