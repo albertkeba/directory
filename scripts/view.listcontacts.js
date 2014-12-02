@@ -17,24 +17,21 @@ App.Views.ListContacts = (function(){
 		var self	= this,
 			$element= $(document.createDocumentFragment()),
 			i		= _itemViews.length;
-		//if ( this.listener )
-		//{
-			App.Event.on('add', function(sender,model){
-				console.log('init add',model);
-				/*_itemViews[ i ] = new App.Views.Contact({
-					id		: i,
-					el		: '#contact-view',
-					model	: model,
-					template: App.Utils.templateLoader.get('list-contact')
-				}).render();
 
-				$element.append( _itemViews[ i ] );
+		App.Event.on('add', function(sender,model){
+			_itemViews[ i ] = new App.Views.Contact({
+				id		: i,
+				el		: '#contact-view',
+				model	: model.attributes,
+				template: App.Utils.templateLoader.get('list-contact')
+			}).render();
 
-				if ( self.$el !== null ) {
-					self.$el.append( $element  );
-				}*/
-			});
-		//}
+			$element.append( _itemViews[ i ] );
+
+			if ( self.$el !== null ) {
+				self.$el.append( $element  );
+			}
+		});
 	};
 
 	List.prototype.render = function(){

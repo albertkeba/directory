@@ -1,5 +1,5 @@
 /*jslint devel: true, newcap: false, nomen: true, plusplus: true, white: true, indent: 4*/
-/*global App, $, Mustache, alert, directory*/
+/*global App, $, Mustache, alert, directory,Lungo*/
 App.Views.Form = (function () {
 	'use strict';
 	var _template = null;
@@ -65,9 +65,10 @@ App.Views.Form = (function () {
 	Form.prototype.AddUser = function (e) {
 		var self= e.data.self,
 			data= {},
-			url	= App.Utils.serviceUrl + 'addContact';
+			url	= App.Utils.serviceUrl + 'addContact',
+			form = self.$el.find('form');
 		
-		self.$el.find('form').serializeArray().map(function( input ){
+		form.serializeArray().map(function( input ){
 			data[input.name] = input.value;
 		});
 		
@@ -79,15 +80,22 @@ App.Views.Form = (function () {
 			success	: function( rs ) {
 				if ( rs.success === 1 )
 				{
-					App.global.directory.add({new App.Models.Contact(data: {
+					App.global.directory.add(new App.Models.Contact({data: {
 						id			: rs.id,
-						firstname	: data.firstname,
-						lastname	: data.lastname,
-						position	: data.title,
+						firstName	: data.firstname,
+						lastName	: data.lastname,
+						title		: data.title,
 						department	: data.department,
-						phone		: data.officePhone,
+						cellPhone	: data.officePhone,
 						email		: data.email
-					})});
+					}}));
+					
+					form[0].reset();
+					
+					Lungo.Notification.show('check', 'Contact ajouté', 2, function(){
+						Lungo.Notification.hide();
+						Lungo.Router.article('main','main-article');
+					});
 				}
 			}
 		});

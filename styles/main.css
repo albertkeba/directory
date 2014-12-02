@@ -22,6 +22,7 @@
 	#card-container #photo {float: left;}
 		#card-container #photo img {width: 100px; height: 100px; padding: 4px; margin: 4px; border: 4px solid #1B9FB8;}
 	#card-container #name {float: left; line-height: 28px; margin-left: 10px; padding-top: 26px;}
+	#card-container #update {float: right; margin-top: 36px;}
 	#card-container li {}
 	#card-container span {}
 
