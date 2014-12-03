@@ -1,5 +1,5 @@
 /*jslint devel: true, nomen: true, plusplus: true, white: true*/
-/*global App, $*/
+/*global App, $, document*/
 App.Views.ListContacts = (function(){
 	'use strict';
 	var _itemViews = {};
@@ -46,11 +46,9 @@ App.Views.ListContacts = (function(){
 				el		: '#contact-view',
 				model	: this.collection.models[i].model.attributes,
 				template: App.Utils.templateLoader.get('list-contact')
-			}).render();
-			
-			//_itemViews[ i ].render();
+			});
 
-			$element.append( _itemViews[ i ] );
+			$element.append( _itemViews[ i ].render() );
 		}
 
 		if ( this.$el !== null ) {

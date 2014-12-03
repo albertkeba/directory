@@ -36,6 +36,7 @@ App.Views.Contact = (function () {
 	};
 
 	View.prototype.render = function () {
+		
 		if ( this.template && this.model )
 		{
 			this._template = $( Mustache.render(this.template, this.model) );
