@@ -1,4 +1,4 @@
-/*jslint devel: true, newcap: true, nomen: true, plusplus: true, white: true, indent: 4*/
+/*jslint devel: true, nomen: true, plusplus: true, white: true, indent: 4*/
 /*global $,App*/
 
 App.Collections.Contacts = (function(){
@@ -46,9 +46,10 @@ App.Collections.Contacts = (function(){
 			type	: 'GET',
 			dataType: 'json',
 			success	: function( result ){
+				var Model = _model;
 				for( i=0; i<result.length; i++ )
 				{
-					tab.push( new _model({data: result[i]}) );
+					tab.push( new Model({data: result[i]}) );
 				}
 
 				for ( i=0; i<tab.length; i++ )
