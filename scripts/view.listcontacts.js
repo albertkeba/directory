@@ -1,19 +1,18 @@
 /*jslint devel: true, nomen: true, plusplus: true, white: true*/
-/*global App, $, document*/
+/*global App, $, document, View*/
 App.Views.ListContacts = (function(){
 	'use strict';
 	var _itemViews = {};
 
-	function List( options ){
-		options = options || {};
+	function ViewList( options ){
+		View.call(this, options);
 
 		this.collection = options.collection || {};
-		this.$el		= options.el ? $(options.el) : null;
 		this.listener	= false;
 		this.init();
 	}
 
-	List.prototype.init = function(e){
+	ViewList.prototype.init = function(e){
 		var self	= this,
 			$element= $(document.createDocumentFragment()),
 			i		= _itemViews.length;
@@ -34,7 +33,7 @@ App.Views.ListContacts = (function(){
 		});
 	};
 
-	List.prototype.render = function(){
+	ViewList.prototype.render = function(){
 		var self = this,
 			$element = $(document.createDocumentFragment()),
 			i = 0;
@@ -43,9 +42,8 @@ App.Views.ListContacts = (function(){
 		{
 			_itemViews[ i ] = new App.Views.Contact({
 				id		: i,
-				el		: '#contact-view',
 				model	: this.collection.models[i].model.attributes,
-				template: App.Utils.templateLoader.get('list-contact')
+				template: 'list-contact'
 			});
 
 			$element.append( _itemViews[ i ].render() );
@@ -56,7 +54,7 @@ App.Views.ListContacts = (function(){
 		}
 	};
 
-	List.prototype.set = function(param, value){
+	ViewList.prototype.set = function(param, value){
 		
 		if ( this.hasOwnProperty(param) )
 		{
@@ -64,7 +62,7 @@ App.Views.ListContacts = (function(){
 		}
 	};
 	
-	List.prototype.get = function(param){
+	ViewList.prototype.get = function(param){
 		
 		if ( this.hasOwnProperty(param) )
 		{
@@ -72,9 +70,9 @@ App.Views.ListContacts = (function(){
 		}
 	};
 	
-	List.prototype.getView = function( id ){
+	ViewList.prototype.getView = function( id ){
 		return _itemViews[ id ];
 	};
 	
-	return List;
+	return ViewList;
 }());

@@ -1,16 +1,12 @@
 /*jslint browser: true, devel: true, nomen: true, white: true*/
-/*global App, $, Mustache, Lungo*/
+/*global App, $, Mustache, Lungo, View*/
 
 App.Views.Card = (function () {
 	'use strict';
-	var _template = null;
 
-	function View( options ){
-		options = options || {};
-
-		this.template	= options.template	|| null;
-		this.model		= options.model		|| null;
-		
+	function ViewCard( options ){
+		View.call(this, options);
+	
 		this.events		= {
 			click: [{
 				element	: '#btn-update',
@@ -19,46 +15,18 @@ App.Views.Card = (function () {
 		};
 	}
 
-	View.prototype.render = function(){
-		if ( this.template && this.model )
+	ViewCard.prototype = Object.create( View.prototype );
+	
+	ViewCard.prototype.render = function(){
+		if ( this.$el )
 		{
-			this._template = $( Mustache.render(this.template, this.model) );
-			this.bindEvents();
-			return this._template;
+			this.$el.empty();
 		}
-
-		return null;
+		
+		View.prototype.render.call(this);
 	};
 	
-	View.prototype.bindEvents = function () {
-
-		var events = this.events, key, el, element = null, model = this.model;
-
-		for ( key in events )
-		{
-			if ( events.hasOwnProperty(key) )
-			{
-				for ( el in events[key] )
-				{
-					if ( (events[key]).hasOwnProperty(el) )
-					{
-						if ( this._template.prop('tagName').toLowerCase() === events[key][el].element )
-						{
-							element = this._template;
-						}
-						else
-						{
-							element = this._template.find( events[key][el].element, this );
-						}
-
-						element.on( key, {self: this, model: model}, this[events[key][el].attach] );
-					}
-				}
-			}
-		}
-	};
-	
-	View.prototype.gotoUpdateContact = function(e){
+	ViewCard.prototype.gotoUpdateContact = function(e){
 		var $form= $('#contact-form').find('form'),
 			model= e.data.model;
 		
@@ -83,5 +51,5 @@ App.Views.Card = (function () {
 		Lungo.Router.article('main','contact-form');
 	};
 
-	return View;
+	return ViewCard;
 }());

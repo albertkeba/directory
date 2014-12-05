@@ -1,16 +1,12 @@
 /*jslint devel: true, newcap: false, nomen: true, plusplus: true, white: true, indent: 4*/
-/*global App, $, Mustache, alert, directory,Lungo*/
+/*global App, $, Mustache, alert, directory,Lungo, View*/
 App.Views.Form = (function () {
 	'use strict';
-	var _template = null;
 	
-	function Form(options) {
-		options = options || {};
-		
-		this.$el = options.el ? $( options.el ) : null;
-		this.template = options.template ? App.Utils.templateLoader.get( options.template ) : null;
-		
-		this.events		= {
+	function ViewForm( options ) {
+		View.call(this, options);
+
+		this.events	= {
 			click: [{
 				element	: '#btn-add',
 				attach	: 'AddUser'
@@ -22,47 +18,9 @@ App.Views.Form = (function () {
 		};
 	}
 	
-	Form.prototype.render = function () {
-		if ( this.template )
-		{
-			this._template = $( Mustache.render(this.template) );
-			this.bindEvents();
-
-			if ( this.$el  )
-			{
-				this.$el.prepend( this._template );
-			}
-		}
-	};
+	ViewForm.prototype = Object.create( View.prototype );
 	
-	Form.prototype.bindEvents = function () {
-		var events = this.events, key, el, element = null;
-
-		for ( key in events )
-		{
-			if ( events.hasOwnProperty(key) )
-			{
-				for ( el in events[key] )
-				{
-					if ( (events[key]).hasOwnProperty(el) )
-					{
-						if ( this._template.prop('tagName').toLowerCase() === events[key][el].element )
-						{
-							element = this._template;
-						}
-						else
-						{
-							element = this._template.find( events[key][el].element, this );
-						}
-
-						element.on( key, {self:this},this[events[key][el].attach] );
-					}
-				}
-			}
-		}
-	};
-	
-	Form.prototype.AddUser = function (e) {
+	ViewForm.prototype.AddUser = function (e) {
 		var self = e.data.self,
 			data = {},
 			url	 = App.Utils.serviceUrl + 'addContact',
@@ -102,7 +60,11 @@ App.Views.Form = (function () {
 						
 						msg = 'Contact ajouté';
 					}
-					
+					else
+					{
+						//$(App.global.list.getView( rs.id )._template).find('strong');
+					}
+						
 					form[0].reset();
 					
 					Lungo.Notification.show('check', msg, 2, function(){
@@ -114,7 +76,7 @@ App.Views.Form = (function () {
 		});
 	};
 	
-	Form.prototype.onChangePosition = function (e,c) {
+	ViewForm.prototype.onChangePosition = function (e,c) {
 		var department,
 			self = e.data.self;
 		
@@ -139,5 +101,5 @@ App.Views.Form = (function () {
 		self.$el.find('#department').val( department );
 	};
 	
-	return Form;
+	return ViewForm;
 }());

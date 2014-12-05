@@ -4,18 +4,33 @@ var View = (function () {
 	'use strict';
 	var _template = null;
 	
-	function Class(){
-		console.log('construct Class');
+	function Class( options ){
+		options = options || {};
+		
+		this.template	= options.template ? App.Utils.templateLoader.get( options.template ) : null;
+		this.model		= options.model		|| null;
+		this.id			= options.id		|| null;
+		this.$el		= options.el ? $( options.el ) : null;
+		this.className	= options.className	|| null;
+		this.events		= {};
 	}
 	
+	Class.prototype.constructor = View;
+	
 	Class.prototype.render = function () {
-		
-		if ( this.template && this.model )
+		if ( this.template )
 		{
 			this._template = $( Mustache.render(this.template, this.model) );
 			this.bindEvents();
 
-			return this._template;
+			if ( this.$el )
+			{
+				this.$el.prepend( this._template );
+			}
+			else
+			{
+				return this._template;
+			}
 		}
 
 		return {};
@@ -41,7 +56,7 @@ var View = (function () {
 							element = this._template.find( events[key][el].element, this );
 						}
 
-						element.on( key, {self:this},this[events[key][el].attach] );
+						element.on( key, {self:this, model:this.model},this[events[key][el].attach] );
 					}
 				}
 			}
@@ -50,26 +65,3 @@ var View = (function () {
 	
 	return Class;
 }());
-
-var Child = (function () {
-	'use strict';
-	
-	function Class(){
-		View.call(this);
-	}
-	
-	Class.prototype = Object.create(View.prototype);
-	
-	Class.prototype.testbis = function() {
-		console.log('testbis');
-	};
-	
-	return Class;
-}());
-
-var V = new View();
-console.log(V);
-//V.test();
-
-var C = new Child();
-console.log(C);
