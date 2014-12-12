@@ -46,23 +46,32 @@ App.Views.Form = (function () {
 			success	: function( rs ) {
 				if ( rs.success === 1 )
 				{
+					console.log(rs.id, data);
+					var model = {
+						id			: rs.id,
+						firstName	: data.firstname,
+						lastName	: data.lastname,
+						title		: data.title,
+						department	: data.department,
+						cellPhone	: data.officePhone,
+						email		: data.email
+					},viewContact;
+					
 					if ( data.contactid === '' )
 					{
-						App.global.directory.add(new App.Models.Contact({data: {
-							id			: rs.id,
-							firstName	: data.firstname,
-							lastName	: data.lastname,
-							title		: data.title,
-							department	: data.department,
-							cellPhone	: data.officePhone,
-							email		: data.email
-						}}));
+						App.global.directory.add(new App.Models.Contact({data: model}));
 						
 						msg = 'Contact ajouté';
 					}
 					else
 					{
-						//$(App.global.list.getView( rs.id )._template).find('strong');
+						viewContact = App.global.list.getView( data.idx );
+						
+						//viewContact.model = model;
+						
+						console.log(viewContact);
+						
+						//viewContact.refresh();
 					}
 						
 					form[0].reset();

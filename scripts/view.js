@@ -1,5 +1,5 @@
 /*jslint devel: true, nomen: true, plusplus: true, white: true*/
-/*global $, Mustache*/
+/*global $, Mustache, App*/
 var View = (function () {
 	'use strict';
 	var _template = null;

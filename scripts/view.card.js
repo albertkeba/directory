@@ -17,18 +17,16 @@ App.Views.Card = (function () {
 
 	ViewCard.prototype = Object.create( View.prototype );
 	
-	ViewCard.prototype.render = function(){
-		if ( this.$el )
-		{
-			this.$el.empty();
-		}
+	ViewCard.prototype.render = function() {
+		this.$el.empty();
 		
 		View.prototype.render.call(this);
 	};
 	
 	ViewCard.prototype.gotoUpdateContact = function(e){
 		var $form= $('#contact-form').find('form'),
-			model= e.data.model;
+			model= e.data.model,
+			idx	 = e.currentTarget.attributes['data-id'].value;
 		
 		if ( $form.length === 0 )
 		{
@@ -40,6 +38,7 @@ App.Views.Card = (function () {
 			$form = $('#contact-form').find('form');
 		}
 		
+		$form.find('#idx').val( idx );
 		$form.find('#contactid').val( model.id );
 		$form.find('#firstname').val( model.firstname );
 		$form.find('#lastname').val( model.lastname );

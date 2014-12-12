@@ -13,18 +13,35 @@ App.Views.Contact = (function () {
 				attach	: 'get'
 			}]
 		};
+		
+		this.init();
 	}
 	
 	ViewContact.prototype = Object.create( View.prototype );
+	
+	ViewContact.prototype.init = function () {
+		App.Event.on('change', function(sender,model){
+			console.log('update view');
+		});
+	};
 
 	ViewContact.prototype.get = function (e) {
+		var model = e.data.model;
+		model.idx = parseInt(e.currentTarget.attributes['data-id'].value, 10);
+
 		new App.Views.Card({
 			model	: e.data.model,
 			el		: '#contact-view',
 			template: 'card'
 		}).render();
+		
+		model = null;
 
 		Lungo.Router.article('main','contact-view');
+	};
+	
+	ViewContact.prototype.refresh = function () {
+		console.log(this.model, this._template[0]);
 	};
 
 	return ViewContact;

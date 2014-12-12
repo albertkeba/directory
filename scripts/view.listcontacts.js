@@ -2,7 +2,7 @@
 /*global App, $, document, View*/
 App.Views.ListContacts = (function(){
 	'use strict';
-	var _itemViews = {};
+	var _itemViews = [];
 
 	function ViewList( options ){
 		View.call(this, options);
@@ -41,10 +41,11 @@ App.Views.ListContacts = (function(){
 		for ( i=0; i<this.collection.models.length; i++ )
 		{
 			_itemViews[ i ] = new App.Views.Contact({
-				id		: i,
 				model	: this.collection.models[i].model.attributes,
 				template: 'list-contact'
 			});
+			
+			_itemViews[ i ].model.idx = i;
 
 			$element.append( _itemViews[ i ].render() );
 		}
