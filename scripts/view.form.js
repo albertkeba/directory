@@ -46,7 +46,7 @@ App.Views.Form = (function () {
 			success	: function( rs ) {
 				if ( rs.success === 1 )
 				{
-					console.log(rs.id, data);
+
 					var model = {
 						id			: rs.id,
 						firstName	: data.firstname,
@@ -65,13 +65,7 @@ App.Views.Form = (function () {
 					}
 					else
 					{
-						viewContact = App.global.list.getView( data.idx );
-						
-						//viewContact.model = model;
-						
-						console.log(viewContact);
-						
-						//viewContact.refresh();
+						App.global.directory.setModel(data.idx, model);
 					}
 						
 					form[0].reset();

@@ -50,14 +50,10 @@
 				});
 
 				App.global.directory.fetch(function(d){
-					App.global.list = new App.Views.ListContacts({
+					new App.Views.ListContacts({
 						el			: '#main-article ul',
 						collection	: d
-					});
-					
-					App.global.list.render();
-					
-					App.global.list.set('listener', true);
+					}).render();
 				});
 			});
 		});

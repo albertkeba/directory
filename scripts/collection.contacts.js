@@ -18,7 +18,7 @@ App.Collections.Contacts = (function(){
 		return this;
 	}
 
-	Collection.prototype.init	= function( options ){
+	Collection.prototype.init = function( options ){
 		if ( options.models )
 		{
 			this.add( options.models );
@@ -73,6 +73,10 @@ App.Collections.Contacts = (function(){
 
 	Collection.prototype.set = function( id, value ){
 		this.get( id ).set( id, value );
+	};
+	
+	Collection.prototype.setModel = function( id, model ){
+		this.models[ id ].model.setAttibutes( id, model );
 	};
 
 	return Collection;

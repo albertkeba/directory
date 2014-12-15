@@ -1,4 +1,4 @@
-/*jslint nomen: true, plusplus: false, white: true, indent: 4*/
+/*jslint devel: true, nomen: true, plusplus: false, white: true, indent: 4*/
 /*global App*/
 App.Models.Contact = (function () {
 	'use strict';
@@ -10,7 +10,7 @@ App.Models.Contact = (function () {
 		this.init(options);
 	}
 
-	Model.prototype.init = function (options) {
+	Model.prototype.init = function( options ){
 		if (options.data) {
 			this.parse(options.data);
 		}
@@ -20,7 +20,7 @@ App.Models.Contact = (function () {
 		}
 	};
 
-	Model.prototype.parse = function (data) {
+	Model.prototype.parse = function( data ){
 		var _c = {
 			id			: parseInt(data.id, 10),
 			firstname	: data.firstName,
@@ -40,7 +40,7 @@ App.Models.Contact = (function () {
 		return this;
 	};
 
-	Model.prototype.get	= function (id) {
+	Model.prototype.get	= function ( id ){
 		if ( this.attributes[ id ] )  {
 			return this.attributes[ id ];
 		} else {
@@ -48,7 +48,7 @@ App.Models.Contact = (function () {
 		}
 	};
 
-	Model.prototype.set	= function (id, value) {
+	Model.prototype.set	= function( id, value ){
 		if ( this.attributes[id] )
 		{
 			this.attributes[id] = value;
@@ -56,6 +56,17 @@ App.Models.Contact = (function () {
 
 			return this.attributes[ id ];
 		}
+	};
+	
+	Model.prototype.setAttibutes = function( id, model ){
+		this.attributes.firstname	= model.firstName;
+		this.attributes.lastname	= model.lastName;
+		this.attributes.cellPhone	= model.cellPhone;
+		this.attributes.email		= model.email;
+		this.attributes.title		= model.title;
+		this.attributes.department	= model.department;
+		
+		App.Event.notify('change', id);
 	};
 
 	return Model;

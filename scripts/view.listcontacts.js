@@ -11,7 +11,9 @@ App.Views.ListContacts = (function(){
 		this.listener	= false;
 		this.init();
 	}
-
+	
+	ViewList.prototype = Object.create( View.prototype );
+	
 	ViewList.prototype.init = function(e){
 		var self	= this,
 			$element= $(document.createDocumentFragment()),
@@ -30,6 +32,10 @@ App.Views.ListContacts = (function(){
 			if ( self.$el !== null ) {
 				self.$el.append( $element  );
 			}
+		});
+		
+		App.Event.on('change', function(sender,id){
+			 _itemViews[ id ].refresh();
 		});
 	};
 

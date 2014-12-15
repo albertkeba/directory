@@ -13,17 +13,9 @@ App.Views.Contact = (function () {
 				attach	: 'get'
 			}]
 		};
-		
-		this.init();
 	}
 	
 	ViewContact.prototype = Object.create( View.prototype );
-	
-	ViewContact.prototype.init = function () {
-		App.Event.on('change', function(sender,model){
-			console.log('update view');
-		});
-	};
 
 	ViewContact.prototype.get = function (e) {
 		var model = e.data.model;
@@ -42,6 +34,10 @@ App.Views.Contact = (function () {
 	
 	ViewContact.prototype.refresh = function () {
 		console.log(this.model, this._template[0]);
+		
+		$(this._template[0]).find('.firstname').text(this.model.firstname);
+		$(this._template[0]).find('.lastname').text(this.model.lastname);
+		$(this._template[0]).find('.title').text(this.model.title);
 	};
 
 	return ViewContact;
