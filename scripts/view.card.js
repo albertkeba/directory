@@ -11,6 +11,9 @@ App.Views.Card = (function () {
 			click: [{
 				element	: '#btn-update',
 				attach	: 'gotoUpdateContact'
+			},{
+				element	: '#btn-delete',
+				attach	: 'deleteContact'
 			}]
 		};
 	}
@@ -23,7 +26,7 @@ App.Views.Card = (function () {
 		View.prototype.render.call(this);
 	};
 	
-	ViewCard.prototype.gotoUpdateContact = function(e){
+	ViewCard.prototype.gotoUpdateContact = function( e ){
 		var $form= $('#contact-form').find('form'),
 			model= e.data.model,
 			idx	 = e.currentTarget.attributes['data-id'].value;
@@ -48,6 +51,28 @@ App.Views.Card = (function () {
 		$form.find('#email').val( model.email );
 		
 		Lungo.Router.article('main','contact-form');
+	};
+	
+	ViewCard.prototype.deleteContact = function(){
+		Lungo.Notification.confirm({
+			icon		: 'user',
+			title		: 'Supprimer le contact',
+			description	: 'Voulez-vous supprimer ce contact?',
+			accept		: {
+				icon	: 'checkmark',
+				label	: 'Confirmer',
+				callback: function(){
+					alert('ok');
+				}
+			},
+			cancel		: {
+				icon	: 'close',
+				label	: 'Annuler',
+				callback: function(){
+					alert('cancel');
+				}
+			}
+		});
 	};
 
 	return ViewCard;

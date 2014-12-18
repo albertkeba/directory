@@ -20,7 +20,7 @@ App.Views.Form = (function () {
 	
 	ViewForm.prototype = Object.create( View.prototype );
 	
-	ViewForm.prototype.AddUser = function (e) {
+	ViewForm.prototype.AddUser = function( e ){
 		var self = e.data.self,
 			data = {},
 			url	 = App.Utils.serviceUrl + 'addContact',
@@ -46,7 +46,6 @@ App.Views.Form = (function () {
 			success	: function( rs ) {
 				if ( rs.success === 1 )
 				{
-
 					var model = {
 						id			: rs.id,
 						firstName	: data.firstname,
@@ -79,7 +78,7 @@ App.Views.Form = (function () {
 		});
 	};
 	
-	ViewForm.prototype.onChangePosition = function (e,c) {
+	ViewForm.prototype.onChangePosition = function( e,c ){
 		var department,
 			self = e.data.self;
 		

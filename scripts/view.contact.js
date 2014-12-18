@@ -17,7 +17,7 @@ App.Views.Contact = (function () {
 	
 	ViewContact.prototype = Object.create( View.prototype );
 
-	ViewContact.prototype.get = function (e) {
+	ViewContact.prototype.get = function( e ){
 		var model = e.data.model;
 		model.idx = parseInt(e.currentTarget.attributes['data-id'].value, 10);
 
@@ -32,7 +32,7 @@ App.Views.Contact = (function () {
 		Lungo.Router.article('main','contact-view');
 	};
 	
-	ViewContact.prototype.refresh = function () {
+	ViewContact.prototype.refresh = function(){
 		console.log(this.model, this._template[0]);
 		
 		$(this._template[0]).find('.firstname').text(this.model.firstname);
