@@ -14,29 +14,36 @@ App.Views.ListContacts = (function(){
 	
 	ViewList.prototype = Object.create( View.prototype );
 	
-	ViewList.prototype.init = function(e){
-		var self	= this,
-			$element= $(document.createDocumentFragment()),
-			i		= _itemViews.length;
+	ViewList.prototype.init = function( e ){
+		var self     = this,
+			$element = $(document.createDocumentFragment()),
+			i        = 0;
 
-		App.Event.on('add', function(sender,model){
+		App.Event.on('add', function( sender,model ){
+            i = _itemViews.length;
+            
 			_itemViews[ i ] = new App.Views.Contact({
 				id		: i,
 				el		: '#contact-view',
 				model	: model.attributes,
 				template: App.Utils.templateLoader.get('list-contact')
-			}).render();
-
-			$element.append( _itemViews[ i ] );
+			});
+            
+            $element.append( _itemViews[ i ].render() );
 
 			if ( self.$el !== null ) {
 				self.$el.append( $element  );
 			}
 		});
 		
-		App.Event.on('change', function(sender,id){
+		App.Event.on('change', function( sender,id ){
 			 _itemViews[ id ].refresh();
 		});
+        
+        App.Event.on('delete', function( sender, id ){
+            _itemViews[id]._template[0].remove();
+            delete _itemViews[ id ];
+        });
 	};
 
 	ViewList.prototype.render = function(){
@@ -61,7 +68,7 @@ App.Views.ListContacts = (function(){
 		}
 	};
 
-	ViewList.prototype.set = function(param, value){
+	ViewList.prototype.set = function( param, value ){
 		
 		if ( this.hasOwnProperty(param) )
 		{
@@ -69,7 +76,7 @@ App.Views.ListContacts = (function(){
 		}
 	};
 	
-	ViewList.prototype.get = function(param){
+	ViewList.prototype.get = function( param ){
 		
 		if ( this.hasOwnProperty(param) )
 		{

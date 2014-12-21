@@ -5,7 +5,8 @@ var Event = (function () {
 		this._sender      = sender;
 		this._listeners   = {
 			change: [],
-			add: []
+			add: [],
+            delete: []
 		};
 	}
 

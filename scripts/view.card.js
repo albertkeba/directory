@@ -53,7 +53,7 @@ App.Views.Card = (function () {
 		Lungo.Router.article('main','contact-form');
 	};
 	
-	ViewCard.prototype.deleteContact = function(){
+	ViewCard.prototype.deleteContact = function( e ){
 		Lungo.Notification.confirm({
 			icon		: 'user',
 			title		: 'Supprimer le contact',
@@ -62,7 +62,11 @@ App.Views.Card = (function () {
 				icon	: 'checkmark',
 				label	: 'Confirmer',
 				callback: function(){
-					alert('ok');
+                    var id = e.currentTarget.attributes['data-id'].value;
+                    App.global.directory.deleteModel( id );
+					//-- supprimer de collection
+                    //-- supprimer de la liste
+                    //-- render
 				}
 			},
 			cancel		: {

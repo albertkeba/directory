@@ -78,6 +78,24 @@ App.Collections.Contacts = (function(){
 	Collection.prototype.setModel = function( id, model ){
 		this.models[ id ].model.setAttibutes( id, model );
 	};
+    
+    Collection.prototype.deleteModel = function( idx ){
+        var self= this,
+            id  = this.models[ idx ].model.attributes.id;
+        
+        $.ajax({
+			url		: App.Utils.serviceUrl + 'deleteContact/' + id,
+			type	: 'DELETE',
+			dataType: 'json',
+			success	: function( result ){;
+				if ( result.success == 1 )
+				{
+					delete self.models[ idx ];
+					App.Event.notify('delete', idx);
+				}
+			}
+		});
+    };
 
 	return Collection;
 }());

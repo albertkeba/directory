@@ -19,13 +19,17 @@ App.Views.Viewport = (function () {
 	Viewport.prototype = Object.create( View.prototype );
 	
 	Viewport.prototype.AddUser = function () {
-		if( $('.form').length === 0 )
+        var $form= $('#contact-form').find('form');
+        
+		if( $form.length === 0 )
 		{
 			new App.Views.Form({
 				el: '#contact-form',
 				template: 'form'
 			}).render();
 		}
+        
+        $form.find('#idx').val('');
 		
 		Lungo.Router.article('main','contact-form');
 	};
