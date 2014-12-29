@@ -22,8 +22,8 @@ App.Views.Form = (function () {
 	
 	ViewForm.prototype.AddUser = function( e ){
 		var self = e.data.self,
-			data = {},
-			url	 = App.Utils.serviceUrl + 'addContact',
+		    data = {},
+		    url	 = App.Utils.serviceUrl + 'addContact',
 			form = self.$el.find('form'),
 			type = 'POST',
 			msg  = 'Succès';
